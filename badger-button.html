@@ -1,0 +1,27 @@
+<!doctypehtml>
+<html>
+<head>
+    <script type="text/javascript" src="https://badgerwallet.cash/button.js"></script>
+</head>
+<body>
+  <p>Tip with Badger Button</p>
+  <p>
+    <button
+      class="badger-button"
+      data-to="bitcoincash:pp8skudq3x5hzw8ew7vzsw8tn4k8wxsqsv0lt0mf3g"
+      data-satoshis="10000"
+      data-success-callback="badgerCallback"
+    >
+      Tip 10,000 Satoshis
+    </button>
+  </p>
+
+  <script>
+    var badgerCallback = function(txid) {
+      console.log("Success. txid:", txid)
+    }
+  </script>
+
+</body>
+
+</html>
