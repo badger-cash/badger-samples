@@ -1,0 +1,79 @@
+<!doctypehtml>
+<html>
+<head>
+    <!-- <script type="text/javascript" src="https://developer.bitcoin.com/badger/badgerButton-1.0.0.js"></script> -->
+    <script>
+    /* BadgerButton 1.0.0
+For documentation and resources visit https://developer.bitcoin.com/badger
+*/
+
+window.onload = function() {
+  var badgerButtons = document.body.getElementsByClassName('badger-button')
+  for (var i = 0; i < badgerButtons.length; i++) {
+    var badgerButton = badgerButtons[i]
+    badgerButton.addEventListener('click', function(event) {
+      if (typeof web4bch !== 'undefined') {
+        web4bch = new Web4Bch(web4bch.currentProvider)
+
+        var txParams = {
+          to: badgerButton.getAttribute('data-to'),
+          from: web4bch.bch.defaultAccount,
+          value: badgerButton.getAttribute('data-satoshis'),
+          sendTokenData: {
+            tokenId: badgerButton.getAttribute('data-token-id'),
+            tokenProtocol: badgerButton.getAttribute('data-token-protocol')
+          }
+        }
+        web4bch.bch.sendTransaction(txParams, (err, res) => {
+          if (err) return
+
+          var paywallId = badgerButton.getAttribute('data-paywall-id')
+          if (paywallId) {
+            var paywall = document.getElementById('paywall')
+            paywall.style.display = 'block'
+          }
+
+          var successCallback = badgerButton.getAttribute(
+            'data-success-callback'
+          )
+          if (successCallback) {
+            window[successCallback](res)
+          }
+        })
+      } else {
+        window.open('https://badger.bitcoin.com')
+      }
+    })
+  }
+}
+</script>
+</head>
+<body>
+  <p>Tip with Badger Button</p>
+  <p>
+    <button
+      class="badger-button"
+      data-to="simpleledger:qpyg4qntl3kg5ucsf6eqsrt8hr34h2wn9qsvu3wuwa"
+      data-satoshis="1"
+      data-success-callback="badgerCallback"
+      data-token-id="df808a41672a0a0ae6475b44f272a107bc9961b90f29dc918d71301f24fe92fb"
+      data-token-protocol="slp"
+    >
+      Tip 1 $NAKAMOTO
+    </button>
+  </p>
+  <p id="confirmed">
+  </p>
+
+  <script>
+    var badgerCallback = function(txid) {
+      console.log("Success. Transaction ID:", txid)
+
+      var confirmedElement = document.getElementById("confirmed")
+      confirmedElement.innerText = "Confirmed. Transaction ID: " + txid
+    }
+  </script>
+
+</body>
+
+</html>
