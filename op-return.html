@@ -1,0 +1,40 @@
+<!doctypehtml>
+<html>
+<body>
+  <p>Send BCH</p>
+  <p>
+    <button id="badger-button">
+      Tip 1000 BCH Satoshis to EatBCH
+    </button>
+  </p>
+
+  <script>
+    var badgerButton = document.getElementById("badger-button")
+
+    badgerButton.addEventListener('click', function(event) {
+      if (typeof web4bch !== 'undefined') {
+        web4bch = new Web4Bch(web4bch.currentProvider)
+
+        var txParams = {
+          to: web4bch.bch.defaultAccount,
+          from: web4bch.bch.defaultAccount,
+          opReturn: {
+            data: ["0x6d02", "hello memo"]
+          }
+        }
+        web4bch.bch.sendTransaction(txParams, (err, res) => {
+          if (err) {
+            console.log('send err', err)
+          } else {
+            console.log('send success, transaction id:', res)
+          }
+        })
+      } else {
+        console.log("Ensure Badger Wallet is installed and unlocked, then refresh this page")
+      }
+    })
+  </script>
+
+</body>
+
+</html>
