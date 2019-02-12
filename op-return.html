@@ -1,10 +1,10 @@
 <!doctypehtml>
 <html>
 <body>
-  <p>Send BCH</p>
+  <p>Send op return</p>
   <p>
     <button id="badger-button">
-      Tip 1000 BCH Satoshis to EatBCH
+      Create memo
     </button>
   </p>
 
@@ -12,12 +12,13 @@
     var badgerButton = document.getElementById("badger-button")
 
     badgerButton.addEventListener('click', function(event) {
-      if (typeof web4bch !== 'undefined') {
-        web4bch = new Web4Bch(web4bch.currentProvider)
+      if (typeof window.web4bch !== 'undefined') {
+        web4bch = new window.Web4Bch(window.web4bch.currentProvider)
 
         var txParams = {
           to: web4bch.bch.defaultAccount,
           from: web4bch.bch.defaultAccount,
+          value: 546,
           opReturn: {
             data: ["0x6d02", "hello memo"]
           }
