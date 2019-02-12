@@ -1,18 +1,20 @@
 <!doctype html>
 <html>
 <head>
-    <script type="text/javascript" src="https://developer.bitcoin.com/badger/badgerButton-1.0.1.js"></script>
+    <script type="text/javascript" src="https://developer.bitcoin.com/badger/badgerToken-1.0.1.js"></script>
 </head>
 <body>
   <p>Tip with Badger Button</p>
   <p>
     <button
       class="badger-button"
-      data-to="bitcoincash:pp8skudq3x5hzw8ew7vzsw8tn4k8wxsqsv0lt0mf3g"
-      data-satoshis="10000"
+      data-to="simpleledger:qpyg4qntl3kg5ucsf6eqsrt8hr34h2wn9qsvu3wuwa"
       data-success-callback="badgerCallback"
+      data-token-amount="1"
+      data-token-id="df808a41672a0a0ae6475b44f272a107bc9961b90f29dc918d71301f24fe92fb"
+      data-token-protocol="slp"
     >
-      Tip 10,000 Satoshis
+      Tip 1 $NAKAMOTO
     </button>
   </p>
   <p id="confirmed">
