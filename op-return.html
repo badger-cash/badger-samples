@@ -1,0 +1,45 @@
+<!doctypehtml>
+<html>
+<body>
+  <p>Set a memo message to send</p>
+  <p>
+    <textarea id="memo-message" maxlength="200">Hello Memo</textarea>
+    <br />
+    <button id="badger-button">
+      Create memo
+    </button>
+  </p>
+  <p id="status"></p>
+
+  <script>
+    var badgerButton = document.getElementById("badger-button")
+
+    badgerButton.addEventListener('click', function(event) {
+      if (typeof window.web4bch !== 'undefined') {
+        web4bch = new window.Web4Bch(window.web4bch.currentProvider)
+
+        var memoMessage = document.getElementById("memo-message").value
+        var txParams = {
+          from: web4bch.bch.defaultAccount,
+          opReturn: {
+            data: ["0x6d02", memoMessage]
+          }
+        }
+        web4bch.bch.sendTransaction(txParams, (err, res) => {
+          if (err) {
+            document.getElementById("status").innerHTML = "An error occurred"
+            console.log('send err', err)
+          } else {
+            document.getElementById("status").innerHTML = "Successfully posted memo tx!"
+            console.log('send success, transaction id:', res)
+          }
+        })
+      } else {
+        console.log("Ensure Badger Wallet is installed and unlocked, then refresh this page")
+      }
+    })
+  </script>
+
+</body>
+
+</html>
