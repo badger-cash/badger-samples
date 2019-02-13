@@ -16,9 +16,7 @@
         web4bch = new window.Web4Bch(window.web4bch.currentProvider)
 
         var txParams = {
-          to: web4bch.bch.defaultAccount,
           from: web4bch.bch.defaultAccount,
-          value: 546,
           opReturn: {
             data: ["0x6d02", "hello memo"]
           }
